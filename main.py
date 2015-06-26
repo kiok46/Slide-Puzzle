@@ -33,3 +33,23 @@ DOWN = 'down'
 LEFT = 'left'
 RIGHT = 'right'
 
+def main():
+	global FPSCLOCK, DISPLAYSURF , BASICFONT, RESET_SURF, RESET_RECT, NEW_SURF, NEW_RECT,SOLVE_SURF,SOLVE_RECT
+	
+	pygame.init()
+	FPSCLOCK = pygame.time.Clock()
+	DISPLAYSURF	= pygame.display.set_mode((WINDOWWIDTH,WINDOWHEIGHT))
+	pygame.display.set_caption('Slide Puzzle')
+	BASICFONT = pygame.font.Font('freesansbold.ttf',BASICFONTSIZE)
+	
+	#buttons
+	RESET_SURF,RESET_RECT = makeText('Reset', TEXTCOLOR,TILECOLOR,WINDOWWIDTH-120,WINDOWWIDTH-90)
+	NEW_SURF,NEW_RECT = makeText('New Game', TEXTCOLOR,TILECOLOR,WINDOWWIDTH-120,WINDOWHEIGHT-60)
+	SOLVE_SURF,SOLVE_RECT = makeText('Solve Puzzle',TEXTCOLOR,TILECOLOR,WINDOWWIDTH-120,WINDOWHEIGHT-30)
+	
+	mainBoard,solutionSeq = generateNewPuzzle(50)
+	SOLVEBOARD = getStartingBoard()
+	allMoves = []
+	
+	while True:
+		slideTo = None
