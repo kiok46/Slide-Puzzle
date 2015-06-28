@@ -2,43 +2,58 @@
 #By project 3 of LNMIIT-CSI Branch
 
 #Code begins here
+#Note : These are the first five functions
+def terminate():
+    pygame.quit()
+    sys.exit()
 
-import pygame , sys, random
-from pygame.locals import *
 
-#creating all the constants and local veriables
-BOARD_WIDTH=4 
-BOARD_HEIGHT=4
-TILE_SIZE=80
-WINDOW_WIDTH=640
-WINDOW_HEIGHT=480
-FPS=30
-BLACK=NONE
+def checkForQuit():
+    for event in pygame.event.get(QUIT): # get all the QUIT events
+        terminate() # terminate if any QUIT events are present
+    for event in pygame.event.get(KEYUP): # get all the KEYUP events
+        if event.key == K_ESCAPE:
+            terminate() # terminate if the KEYUP event was for the Esc key
+        pygame.event.post(event) # put the other KEYUP event objects back
 
-# RED GREEN BLUE
-BLACK=(0,0,0)
-WHITE=(255,255,255)
-BRIGHTBLUE=(0,50,255)
-DARKTURQUOISE=(3,54,73)
-GREEN=(0,204,0)
 
-BGCOLOR=DARKTURQUOISE
-TILECOLOR=GREEN
-TEXTCOLOR=WHITE
-BORDERCOLOR=BRIGHTBLUE
-BASICFONTSIZE=20
+def getStartingBoard():
+    # Return a board data structure with tiles in the solved state.
+    # For example, if BOARDWIDTH and BOARDHEIGHT are both 3, this function
+    # returns [[1, 4, 7], [2, 5, 8], [3, 6, BLANK]]
+    counter = 1
+    board = []
+    for x in range(BOARDWIDTH):
+        column = []
+        for y in range(BOARDHEIGHT):
+            column.append(counter)
+            counter += BOARDWIDTH
+        board.append(column)
+        counter -= BOARDWIDTH * (BOARDHEIGHT - 1) + BOARDWIDTH - 1
 
-BUTTONCOLOR=WHITE
-BOOTONEXTCOLOR=BLACK
-MESSAGECOLOR=WHITE
+    board[BOARDWIDTH-1][BOARDHEIGHT-1] = BLANK
+    return board
 
-XMARGIN=int((WINDOWWIDTH-(TILESIZE*BOARDWIDTH+(BOARDWIDTH-1)))/2)
-YMARGIN=int((WINDOWWIDTH-(TILESIZE*BOARDHEIGHT+(BOARDHEIGHT-1)))/2)
 
-UP='up'
-DOWN='down'
-LEFT='left'
-RIGHT='right'
+def getBlankPosition(board):
+    # Return the x and y of board coordinates of the blank space.
+    for x in range(BOARDWIDTH):
+        for y in range(BOARDHEIGHT):
+            if board[x][y] == BLANK:
+                return (x, y)
 
-def main() :
-	global FPSCLOCK , DI
+
+def makeMove(board, move):
+    # This function does not check if the move is valid.
+    blankx, blanky = getBlankPosition(board)
+
+    if move == UP:
+        board[blankx][blanky], board[blankx][blanky + 1] = board[blankx][blanky + 1], board[blankx][blanky]
+    elif move == DOWN:
+        board[blankx][blanky], board[blankx][blanky - 1] = board[blankx][blanky - 1], board[blankx][blanky]
+    elif move == LEFT:
+        board[blankx][blanky], board[blankx + 1][blanky] = board[blankx + 1][blanky], board[blankx][blanky]
+    elif move == RIGHT:
+        board[blankx][blanky], board[blankx - 1][blanky] = board[blankx - 1][blanky], board[blankx][blanky]
+
+
