@@ -10,11 +10,11 @@ WINDOWHEIGHT = 480
 FPS = 30
 BLANK = None
 
-BLACK =         (  0,   0,   0)
-WHITE =         (255, 255, 255)
-BRIGHTBLUE =    (  0,  50, 255)
-DARKTURQUOISE = (  3,  54,  73)
-GREEN =         (  0, 204,   0)
+BLACK =         (  0,   0,   0, 128)
+WHITE =         (255, 255, 255, 128)
+BRIGHTBLUE =    (  0,  50, 255, 128)
+DARKTURQUOISE = (  3,  54,  73, 128)
+GREEN =         (  0, 204,   0, 128)
 
 BGCOLOR = DARKTURQUOISE
 TILECOLOR = GREEN
