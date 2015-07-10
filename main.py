@@ -2,8 +2,8 @@ import pygame, sys, random
 from pygame.locals import *
 
 # Create the constants
-BOARDWIDTH = 4  # number of columns in the board
-BOARDHEIGHT = 4 # number of rows in the board
+BOARDWIDTH = 4  # number of columns
+BOARDHEIGHT = 4 # number of rows
 TILESIZE = 80
 WINDOWWIDTH = 640
 WINDOWHEIGHT = 480
